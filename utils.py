@@ -15,28 +15,6 @@ def doesntContain(word, letters):
             return False
     return True
 
-    # jeżeli ta listera występuje w tablicy letters
-    # to zwróć false
-    # a jeżeli żadna litera nie wystpuje to zwróć True
-
-def assertEquals(value, expectedValue):
-    if (value == expectedValue):
-        print('OK')
-    else:
-        print('ERROR')
-
-# print('Testujemy funkcję isMatching')
-# assertEquals(isMatching('....', 'pies'), True)
-# assertEquals(isMatching('..e.', 'okno'), False)
-# assertEquals(isMatching('..e.', 'okeo'), True)
-# assertEquals(isMatching('..x.y', 'okxoy'), True)
-# assertEquals(isMatching('..x.yz', 'okxoyf'), False)
-
-# print('Testujemy funkcję doesntContain')
-# assertEquals(doesntContain('kot', 'b'), True)
-# assertEquals(doesntContain('kot', 'bo'), False)
-# assertEquals(doesntContain('kot', 'ot'), False)
-# assertEquals(doesntContain('kot', 'ab'), True)
 
 def updateStatsFromFile(fileName, stats):
     file = open(fileName, 'r')
@@ -51,6 +29,7 @@ def updateStatsFromFile(fileName, stats):
 #Funkcja usuwa wszystkie znaki oprócz liter
 def isWord(word):
     return word.isalpha()
+
 def removeSpecialCharacters(word):
     return word.strip(".,<>?/"':;}]{[|\+=_-)0(9*8&7^6%5$4#3@2!1~`-*`)]}'"—")
 
@@ -127,3 +106,15 @@ def readFilesFromDir(dirName):
         if isfile(fullPath):
             files.append(fullPath)
     return files
+
+def isLetterInWord(letter, word):
+    return word.find(letter) != -1
+#funkcja odsłania zgadnięte litery
+#np. dla guess = ..e., word = pies i letter = p
+# zwróci p.e.
+def showLetterInWord(guess, word, letter):
+    guess = list(guess)
+    for i in range(0, len(guess)):
+        if word[i] == letter:
+            guess[i] = letter
+    return "".join(guess)
