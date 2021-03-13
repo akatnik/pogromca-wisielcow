@@ -95,7 +95,7 @@ def filterStatsByNotGuessed(stats, notGuessed):
     return filteredStats
 
 def debug(o):
-  print(o)
+#  print(o)
   pass
 
 
@@ -112,9 +112,20 @@ def isLetterInWord(letter, word):
 #funkcja odsłania zgadnięte litery
 #np. dla guess = ..e., word = pies i letter = p
 # zwróci p.e.
-def showLetterInWord(guess, word, letter):
+def showLetterInWord(guess, pos, letter):
     guess = list(guess)
-    for i in range(0, len(guess)):
-        if word[i] == letter:
-            guess[i] = letter
+    for i in pos:
+        guess[i - 1] = letter
     return "".join(guess)
+
+def askForLetter(letter):
+    answer = input(f"Na której pozycji występuje litera '{letter}': ")
+    if (answer == '0' or answer == '-' or answer == 'nie ma' or answer == 'brak' or answer == ''):
+        return []
+    else:
+        posAsStrings = answer.split(',')
+        posAsInt = []
+        for pos in posAsStrings:
+            posAsInt.append(int(pos))
+        return posAsInt
+    

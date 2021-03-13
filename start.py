@@ -9,12 +9,15 @@ for file in readFilesFromDir('./book'):
 debug(f'Wczytano statystyki dla {len(stats)} wyrazów.')
 
 
-if (len(sys.argv) != 2):
-    print('Błąd! Podaj słowo jako argument programu')
-    exit(1)
+# if (len(sys.argv) != 2):
+#     print('Błąd! Podaj słowo jako argument programu')
+#     exit(1)
 
-answer = sys.argv[1]
-guess = '.' * len(answer)
+# answer = sys.argv[1]
+letersCount = input('podaj ilosc liter: ')
+
+
+guess = '.' * int(letersCount)
 
 
 notGuessed = ''
@@ -24,7 +27,8 @@ wordLen = len(guess)
 print(f'Wyraz ma {wordLen} liter')
 
 errorsCounter = 0
-while guess != answer and errorsCounter < 13:
+ok = False
+while not ok and errorsCounter < 13:
     print('__________________________________________________')
     print(guess)
     filteredStats = filterStatsByLength(stats, wordLen)
@@ -37,14 +41,16 @@ while guess != answer and errorsCounter < 13:
     letter = selectChar(charStats, guessed)
     print(f"Kupuję literę {letter}")
 
-    if isLetterInWord(letter, answer):
-        guess = showLetterInWord(guess, answer, letter)
-        print(f'Brawo, litera {letter} została odsłonięta')
+    pos = askForLetter(letter)
+    if len(pos) > 0 :
+        guess = showLetterInWord(guess, pos, letter)
     else:
         print(f'Nie udało się')
         errorsCounter = errorsCounter + 1
     guessed = guessed + letter
-
+    ok = guess.find('.') == -1
+    if ok:
+        print(f'słowo to "{guess}"')
 print(f'Gra zakończona po {errorsCounter} błędach')
 if (errorsCounter == 13):
-    print(f'Przegrałeś, szukane słowo to {answer}')
+    print(f'Przegrałem')
